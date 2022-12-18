@@ -15,14 +15,14 @@ deckhouse:
     userAuthnEnabled: true
     userAuthzEnabled: true
     namespaceConfiguratorEnabled: true
-    namespaceConfigurator: |
+    namespaceConfigurator:
       configurations:
       - annotations:
           extended-monitoring.flant.com/enabled: "true"
         includeNames:
         - "production"
         - "loki-logging"
-    dashboard: |
+    dashboard:
       accessLevel: ClusterAdmin
       auth:
         allowScale: true

@@ -16,14 +16,14 @@ deckhouse:
     userAuthnEnabled: true
     userAuthzEnabled: true
     namespaceConfiguratorEnabled: true
-    namespaceConfigurator: |
+    namespaceConfigurator:
       configurations:
       - annotations:
           extended-monitoring.flant.com/enabled: "true"
         includeNames:
         - "production"
         - "loki-logging"
-    dashboard: |
+    dashboard:
       accessLevel: ClusterAdmin
       auth:
         allowScale: true
@@ -31,10 +31,11 @@ deckhouse:
           authURL: http://auth.dashboard-auth.svc.cluster.local/_tech/is_auth
           authSignInURL: https://dashboard.d8test.example.com/_tech/auth
           useBearerTokens: true
-    prometheus: |
+    prometheus:
       nodeSelector:
         node-role.kubernetes.io/system: system
       tolerations:
-      - key: CriticalAddonsOnly
-        operator: Exists
+        - effect: NoExecute
+          operator: Exists
+
 
