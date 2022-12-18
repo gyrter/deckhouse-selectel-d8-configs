@@ -1,0 +1,40 @@
+apiVersion: deckhouse.io/v1
+kind: InitConfiguration
+deckhouse:
+  releaseChannel: Alpha
+  bundle: Managed
+  configOverrides:
+    global:
+      highAvailability: true
+      modules:
+        publicDomainTemplate: '%s.d8test.example.com'
+      storageClass: "fast.ru-3a"
+    certManagerEnabled: true
+    deckhouseWebEnabled: true
+    chronyEnabled: false
+    userAuthnCrdEnabled: true
+    userAuthnEnabled: true
+    userAuthzEnabled: true
+    namespaceConfiguratorEnabled: true
+    namespaceConfigurator: |
+      configurations:
+      - annotations:
+          extended-monitoring.flant.com/enabled: "true"
+        includeNames:
+        - "production"
+        - "loki-logging"
+    dashboard: |
+      accessLevel: ClusterAdmin
+      auth:
+        allowScale: true
+        externalAuthentication:
+          authURL: http://auth.dashboard-auth.svc.cluster.local/_tech/is_auth
+          authSignInURL: https://dashboard.d8test.example.com/_tech/auth
+          useBearerTokens: true
+    prometheus: |
+      nodeSelector:
+        node-role.kubernetes.io/system: system
+      tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+
